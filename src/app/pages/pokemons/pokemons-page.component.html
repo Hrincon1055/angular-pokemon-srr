@@ -1,12 +1,19 @@
 <h1 class="text-3xl">Listado de pokémons</h1>
 <h2 class="text-xl">Página actual: {{ currentPage() }}</h2>
 <hr class="my-2" />
-@if (pokemons()) {
+@if (pokemons().length > 0) {
 <pokemon-list [pokemons]="pokemons()" />
 } @else {
 <pokemon-list-skeleton />
 }
 <div class="flex justify-between pt-2">
-  <button (click)="loadPokemons(-1)">Anteriores</button>
-  <button (click)="loadPokemons(+1)">Siguientes</button>
+  <button
+    [routerLink]="['/pokemons/page', currentPage()! - 1]"
+    [disabled]="currentPage() === 1"
+  >
+    Anteriores
+  </button>
+  <button [routerLink]="['/pokemons/page', currentPage()! + 1]">
+    Siguientes
+  </button>
 </div>
